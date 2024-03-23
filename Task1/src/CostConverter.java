@@ -1,5 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class CostConverter {
     private static final int DEFAULT_GLOBAL_FACTOR = 300;
@@ -8,8 +10,9 @@ public class CostConverter {
         put("model1234", 500);
     }};
 
-    public static int calculateCost(float time, float money, String model) {
-        return Math.round(time * getTimeFactor(model) + money);
+    public static int calculateCost(float time, BigDecimal money, String model) {
+        return money.add(new BigDecimal(time * getTimeFactor(model)))
+            .setScale(0, RoundingMode.HALF_UP).intValue();
     }
 
     private static int getTimeFactor(String name) {

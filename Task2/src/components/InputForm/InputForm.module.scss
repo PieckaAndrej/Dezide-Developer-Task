@@ -1,0 +1,14 @@
+.InputForm {
+  width: 400px;
+  max-width: 90%;
+  justify-self: flex-end;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menuTimeFactor {
+  margin-left: auto;
+  color: rgba($color: #000000, $alpha: 0.6);
+}

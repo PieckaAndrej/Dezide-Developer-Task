@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Schedule } from '@mui/icons-material';
+import { useState } from 'react';
+import styles from './App.module.scss';
+import InputForm from './components/InputForm/InputForm';
+import Result from './components/Result/Result';
+import { CostModel } from './models/CostModel';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const models: CostModel[] = [
+    {
+      id: 0,
+      name: 'Default Model',
+      timeFactor: 300
+    },
+    {
+      id: 1,
+      name: 'Model1234',
+      timeFactor: 500
+    },
+  ];
+
+
+  const [result, setResult] = useState<number>(0);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className={styles.App}>
+      <div className={styles.logo}>
+        <Schedule />
+        Cost Converter
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <InputForm models={models}
+        setResult={setResult}/>
+      <span className={styles.equals}>
+        =
+      </span>
+      <Result value={result}/>
+    </div>
+  );
+};
 
-export default App
+export default App;

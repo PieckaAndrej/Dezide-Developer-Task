@@ -1,0 +1,16 @@
+.Result {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  font-size: 10rem;
+}
+
+.resultText {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.Result::after {
+  content: "€";
+  color: rgba($color: #000000, $alpha: 0.12);
+}

@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+
 public class Main {
     public static void main(String[] args) throws Exception {
         if (args.length < 2) {
@@ -8,7 +10,7 @@ public class Main {
         }
 
         float time;
-        float money;
+        BigDecimal money;
         String model = "";
 
         try {
@@ -19,7 +21,7 @@ public class Main {
         }
 
         try {
-            money = Float.parseFloat(args[1]);
+            money = new BigDecimal(args[1]);
         } catch (NumberFormatException nfe) {
             printNumberFormatException("money", args[1]);
             return;
@@ -36,6 +38,6 @@ public class Main {
     }
 
     public static void printNumberFormatException(String parameter, String value) {
-        System.err.println(String.format("%s '%s' cannot be parsed to float", parameter, value));
+        System.err.println(String.format("%s '%s' is not a number", parameter, value));
     }
 }
