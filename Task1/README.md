@@ -2,4 +2,4 @@
 
 Cost converter with optional model
 
-`java -jar costconverter.jar <time> <money> <model>`
+Usage: `java -jar costconverter.jar <time> <money> <model>`
