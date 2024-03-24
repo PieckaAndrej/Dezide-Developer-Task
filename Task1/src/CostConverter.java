@@ -18,9 +18,9 @@ public class CostConverter {
     private static int getTimeFactor(String name) {
         int retVal = DEFAULT_GLOBAL_FACTOR;
 
-        name = name.toLowerCase();
+        if (name != null && !name.isBlank()) {
+            name = name.toLowerCase();
 
-        if (name != null) {
             if (MONETARY_VALUES.containsKey(name)) {
                 retVal = MONETARY_VALUES.get(name);
             } else {
