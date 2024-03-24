@@ -1,4 +1,4 @@
-import { Schedule } from '@mui/icons-material';
+import { CurrencyExchange } from '@mui/icons-material';
 import { useState } from 'react';
 import styles from './App.module.scss';
 import InputForm from './components/InputForm/InputForm';
@@ -25,7 +25,7 @@ const App = () => {
   return (
     <div className={styles.App}>
       <div className={styles.logo}>
-        <Schedule />
+        <CurrencyExchange />
         Cost Converter
       </div>
       <InputForm models={models}

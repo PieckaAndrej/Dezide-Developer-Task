@@ -1,9 +1,12 @@
 export const convertStringToDateString = (str: string) => {
-    return `${fillString((+str.slice(-str.length-1, -4)).toString())}:${
+    str = str.replace(/\D/g, '');
+
+    return `${fillString((+str.slice(-str.length - 1, -4)).toString())}:${
         fillString(str.slice(-4, -2))}:${fillString(str.slice(-2))}`;
 };
 
 export const convertDateStringToMinutes = (str: string) => {
+    str = str.replace(/\D/g, '');
 
     let minutes: number = +str.slice(-4, -2);
 
@@ -13,7 +16,20 @@ export const convertDateStringToMinutes = (str: string) => {
     return minutes;
 };
 
-const fillString = (str: string, length: number = 2, char: string = '0') => {
+export const normalizeDateString = (str: string) => {
+    str = str.replace(/\D/g, '');
+
+    const date = new Date();
+
+    date.setHours(0);
+    date.setMinutes(+str.slice(-4, -2));
+    date.setSeconds(+str.slice(-2));
+
+    return `${fillString((+str.slice(-str.length - 1, -4) + date.getHours()).toString())}:${
+        fillString(date.getMinutes().toString())}:${fillString(date.getSeconds().toString())}`;
+};
+
+export const fillString = (str: string, length: number = 2, char: string = '0') => {
     if (length <= str.length) {
         return str;
     }

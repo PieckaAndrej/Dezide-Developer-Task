@@ -1,8 +1,8 @@
-import { FilledInput, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import React, { Dispatch, FC, useCallback, useEffect, useState } from 'react';
 import { CostModel } from '../../models/CostModel';
 import { convertCost } from '../../services/costConvertService';
-import { convertDateStringToMinutes, convertStringToDateString } from '../../services/utilsService';
+import { convertDateStringToMinutes, convertStringToDateString, normalizeDateString } from '../../services/utilsService';
 import styles from './InputForm.module.scss';
 
 interface InputFormProps {
@@ -25,9 +25,11 @@ const InputForm: FC<InputFormProps> = (props) => {
 
   }, [form, props]);
 
-  const onTimeChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    // Remove everything except numbers
-    e.target.value = e.target.value.replace(/\D/g, '');
+  const onTimeBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
+    if (e.target.value.length > 0) {
+      e.target.value = normalizeDateString(e.target.value);
+    }
+
     handleChange(e);
   };
 
@@ -69,19 +71,18 @@ const InputForm: FC<InputFormProps> = (props) => {
         label="Time"
         name='time'
         value={form.time.length == 0 ? '' : convertStringToDateString(form.time)}
-        onChange={onTimeChange}
+        onChange={handleChange}
+        onBlur={onTimeBlur}
         placeholder='HH:MM:SS'
         variant="filled" />
-      <FormControl variant='filled' fullWidth>
-        <InputLabel htmlFor='money-input'>Money</InputLabel>
-        <FilledInput
-          id='money-input'
-          name='money'
-          type='number'
-          value={form.money}
-          onChange={onMoneyChange}
-        />
-      </FormControl>
+      <TextField fullWidth
+        id="money"
+        label="Money"
+        name='money'
+        type='number'
+        value={form.money}
+        onChange={onMoneyChange}
+        variant="filled" />
       <FormControl variant='filled' fullWidth>
         <InputLabel id="model-label">Model</InputLabel>
         <Select
